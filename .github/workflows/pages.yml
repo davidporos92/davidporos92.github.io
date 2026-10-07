@@ -29,6 +29,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.repository == 'davidporos92/davidporos92.github.io'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
