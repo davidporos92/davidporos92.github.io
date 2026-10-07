@@ -7,6 +7,15 @@ on:
   push:
     branches: [main]
   workflow_dispatch: # manual "Run workflow" button, e.g. to publish a post dated in the future once its day comes
+    inputs:
+      crosspost:
+        description: "Posts to cross-post, space-separated paths (default: posts dated today)"
+        required: false
+        default: ""
+      dry_run:
+        description: "Cross-post dry run: render only, don't call dev.to"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -44,3 +53,55 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v5
+
+  # Cross-posts new or changed posts once the site is live: a draft on dev.to,
+  # and ready-to-paste markdown for Hashnode (see the run summary and artifact).
+  crosspost:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      TZ: Europe/Budapest # same as _config.yml, so "dated today" matches Jekyll
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Find posts to cross-post
+        id: posts
+        env:
+          BEFORE: ${{ github.event.before }}
+          INPUT_POSTS: ${{ inputs.crosspost }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ -n "$INPUT_POSTS" ]; then
+              posts="$INPUT_POSTS"
+            else
+              posts=$(find _posts -name "$(date +%F)-*.md" | sort)
+            fi
+          elif git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            posts=$(git diff --name-only --diff-filter=AM "$BEFORE" "$GITHUB_SHA" -- '_posts/**.md')
+          else
+            posts=$(git diff-tree --root --no-commit-id --name-only -r --diff-filter=AM "$GITHUB_SHA" -- '_posts/**.md')
+          fi
+          echo "list=$(echo $posts)" >> "$GITHUB_OUTPUT"
+          echo "Posts: ${posts:-none}"
+
+      - name: Cross-post
+        if: steps.posts.outputs.list != ''
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
+          POSTS: ${{ steps.posts.outputs.list }}
+        run: ruby scripts/crosspost.rb $DRY_RUN --out crosspost $POSTS
+
+      - uses: actions/upload-artifact@v7
+        if: steps.posts.outputs.list != ''
+        with:
+          name: crosspost
+          path: crosspost/

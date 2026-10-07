@@ -63,6 +63,19 @@ Don't start the body with `# Title`; the layout prints it. Link to other posts w
 
 Fonts, colors and spacing are set in `_sass/site/_variables.scss`.
 
+## Cross-posting
+
+After each deploy, the `crosspost` job in [the Pages workflow](.github/workflows/pages.yml) runs [`scripts/crosspost.rb`](scripts/crosspost.rb) on the posts added or changed in that push:
+
+- **dev.to:** creates a draft with the canonical URL set to this blog, or updates the existing article (found by canonical URL) without changing whether it's published. Needs the `DEVTO_API_KEY` repo secret; without it, dev.to is skipped.
+- **Hashnode:** its API needs a paid Pro plan, so the job only prepares the content. Download the `crosspost` artifact, paste `hashnode/<slug>.md` into a new Hashnode post, and copy the title, subtitle, slug, tags and canonical URL from the run summary.
+
+Liquid links are resolved to absolute URLs, and a footer links back to the original post and its code. Posts dated in the future are skipped. To cross-post them on their day, or to re-run for existing posts, use **Run workflow** with the post paths (and optionally a dry run):
+
+```sh
+ruby scripts/crosspost.rb --dry-run --out /tmp/crosspost _posts/margincms/*.md   # local preview
+```
+
 ## License
 
 The posts and pages are my own writing; please don't republish them without asking. The code behind each post lives in its own repository, under that repository's license.
