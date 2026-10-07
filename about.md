@@ -11,7 +11,7 @@ This blog is where I build things in public. Each post comes with the code, tagg
 ## What's here
 
 - **[Building MarginCMS]({% post_url margincms/2026-10-05-building-margincms-part-1-contract-first-code-later %})**: a small CMS in Go, built from scratch to get back to writing code myself instead of only reviewing what AI writes. My wife builds the React frontend, so the API contract comes first.
-- Who knows what comes next? Sometimes I'm a bit chaotic, just like life, so you might see more than one series running at the same time.
+- Who knows what comes next? I tend to follow whatever's caught my interest, so more than one series may be running at the same time.
 
 Browse by [tag]({{ "/tags/" | relative_url }}) or follow along via [RSS]({{ "/feed.xml" | relative_url }}).
 

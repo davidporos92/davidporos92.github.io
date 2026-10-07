@@ -19,7 +19,7 @@ Nobody needs another CMS, including me. I'm building one anyway, for four reason
 
 **It's fun.** Writing a CMS has been on my someday list for years, and a pet project with no deadline and no users is the best place to finally do it.
 
-**AI made me rusty.** I use AI tools every day, and they're good. But I noticed that I reach for them before I've thought a problem through, and that the details of Go I used to know by heart have become fuzzy. I want a project where I make the decisions and write the code myself, with AI as a reviewer and a rubber duck rather than the author.
+**Deliberate practice.** I use AI tools every day, and they're good. But I noticed I reach for them before I've thought a problem through. I want one project where I make every decision and write the code myself, with AI as a reviewer and a rubber duck rather than the author.
 
 **It starts easy and gets hard.** A CMS starts as CRUD over a `posts` table, which is a nice way to ease back in. Then the real problems show up: authentication and token refresh, revision history, two people editing the same post at the same time, search, pagination. Each of these is small enough to finish and deep enough to learn something from.
 
