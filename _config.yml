@@ -1,5 +1,9 @@
 title: Dávid Pörös
-description: Pet projects, what I learn from them, and the code to prove it. Clone it, run it, prove me wrong.
+# SEO: the home page <title> is "title | tagline"; description is the meta
+# description for pages without their own (home page, feed).
+tagline: Backend engineering
+description: "Backend engineer since 2013, building pet projects in the open: the decisions, the trade-offs and what broke. Every post links to code you can run."
+footer_text: Pet projects, what I learn from them, and the code to prove it. Clone it, run it, prove me wrong.
 author: Dávid Pörös
 url: https://davidporos92.github.io
 baseurl: ""

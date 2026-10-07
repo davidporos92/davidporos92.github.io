@@ -73,7 +73,7 @@ After each deploy, the `crosspost` job in [the Pages workflow](.github/workflows
 Liquid links are resolved to absolute URLs, and a footer links back to the original post and its code. Posts dated in the future are skipped. To cross-post them on their day, or to re-run for existing posts, use **Run workflow** with the post paths (and optionally a dry run):
 
 ```sh
-ruby scripts/crosspost.rb --dry-run --out /tmp/crosspost _posts/margincms/*.md   # local preview
+ruby scripts/crosspost.rb --dry-run --out ./tmp/crosspost _posts/margincms/*.md   # local preview
 ```
 
 ## License

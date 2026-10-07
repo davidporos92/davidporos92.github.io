@@ -2,12 +2,13 @@
 layout: default
 ---
 {%- comment -%}
-  Copy of minima 2.5.1's home layout, with tags under each post.
+  Copy of minima 2.5.1's home layout, with tags under each post, and nav_title as the heading.
 {%- endcomment -%}
 
 <div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- assign heading = page.nav_title | default: page.title -%}
+  {%- if heading -%}
+    <h1 class="page-heading">{{ heading }}</h1>
   {%- endif -%}
 
   {{ content }}
