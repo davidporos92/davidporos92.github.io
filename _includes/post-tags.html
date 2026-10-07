@@ -1,0 +1,11 @@
+{%- comment -%}
+  Tag chips linking to the matching section of /tags/.
+  Usage: {% include post-tags.html tags=page.tags %}
+{%- endcomment -%}
+{%- if include.tags and include.tags.size > 0 -%}
+<ul class="tag-list">
+  {%- for tag in include.tags -%}
+  <li><a class="tag" href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}">#{{ tag }}</a></li>
+  {%- endfor -%}
+</ul>
+{%- endif -%}

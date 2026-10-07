@@ -1,0 +1,54 @@
+// Tag chips (post header, post list, /tags/) and the /tags/ index page.
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 $spacing-unit * 0.5;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+  }
+}
+
+.tag-index {
+  margin-bottom: $spacing-unit;
+}
+
+// `a.tag` (not `.tag`) so the chip color beats the global link states in _base.scss.
+a.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: $radius-pill;
+  background-color: rgba($brand-color, 0.1);
+  font-size: $small-font-size;
+  text-decoration: none;
+
+  &,
+  &:visited {
+    color: darken($brand-color, 15%);
+  }
+
+  &:hover {
+    background-color: rgba($brand-color, 0.2);
+    text-decoration: none;
+  }
+}
+
+.tag-count {
+  opacity: 0.6;
+}
+
+// One section per tag on /tags/; highlighted when reached through a tag chip.
+.tag-section {
+  margin: 0 -12px;
+  padding: 2px 12px;
+  border-radius: $radius-small;
+  scroll-margin-top: $spacing-unit;
+
+  &:target {
+    background-color: rgba($brand-color, 0.07);
+  }
+}

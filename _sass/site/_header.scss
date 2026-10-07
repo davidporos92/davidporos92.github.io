@@ -1,0 +1,18 @@
+// Dark header bar with the brand color as its top border.
+
+.site-header {
+  padding: 8px 0;
+  background-color: $header-background;
+  border-top-color: $brand-color;
+
+  .site-title,
+  .page-link {
+    color: $header-text-color;
+  }
+}
+
+.site-title {
+  font-family: $heading-font-family;
+  font-weight: $heading-font-weight;
+  letter-spacing: 0;
+}

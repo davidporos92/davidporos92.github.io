@@ -1,0 +1,56 @@
+title: Dávid Pörös
+description: Pet projects, what I learn from them, and the code to prove it. Clone it, run it, prove me wrong.
+author: Dávid Pörös
+url: https://davidporos92.github.io
+baseurl: ""
+timezone: Europe/Budapest
+
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# minima 2.5 (the version the GitHub Pages builder ships) reads these keys
+github_username: davidporos92
+linkedin_username: david-poros
+
+show_excerpts: true
+
+# Order of links in the header (each page needs a title)
+header_pages:
+  - index.md
+  - tags.md
+  - about.md
+
+# Posts live in _posts/ and get /posts/<slug>/ URLs, so giscus threads
+# (pathname mapping) survive title edits.
+permalink: /posts/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+# giscus: fill the two ids from https://giscus.app after enabling Discussions
+giscus:
+  repo: davidporos92/davidporos92.github.io
+  repo_id: "R_kgDOU_aTZQ"
+  category: Comments
+  category_id: "DIC_kwDOU_aTZc4DHQBA"
+
+# PostHog analytics. The project token (phc_...) is public by design; copy it from
+# PostHog > Project settings. Use https://us.i.posthog.com for a US-region project.
+# Only loaded in production builds (the GitHub Actions deploy), never in `jekyll serve`.
+posthog:
+  token: "phc_nhNpHxK4djVyL9MofPmXdeP3YKXER7ZjwNz3HZnSwfHa"
+  api_host: https://eu.i.posthog.com
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - scripts/

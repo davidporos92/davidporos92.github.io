@@ -1,0 +1,69 @@
+{%- comment -%}
+  Previous / next links at the bottom of a post.
+
+  Defaults:
+    - post in a series: the older / newer post of the same series
+    - otherwise: the older / newer post on the whole blog
+  Front matter overrides (a post's slug is its file name without the date and .md):
+    previous_post: some-other-post-slug   # link a specific post
+    next_post: false                      # hide this link
+{%- endcomment -%}
+
+{%- assign nav_prev = nil -%}
+{%- assign nav_next = nil -%}
+
+{%- if page.series -%}
+  {%- assign series_posts = site.posts | where: "series", page.series -%}
+  {%- for post in series_posts -%}
+    {%- if post.url == page.url -%}
+      {%- comment -%} site.posts is newest first, so the previous (older) post comes after this one. {%- endcomment -%}
+      {%- assign nav_prev = series_posts[forloop.index] -%}
+      {%- if forloop.first == false -%}
+        {%- assign newer_index = forloop.index0 | minus: 1 -%}
+        {%- assign nav_next = series_posts[newer_index] -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- assign nav_prev = page.previous -%}
+  {%- assign nav_next = page.next -%}
+{%- endif -%}
+
+{%- if page.previous_post == false -%}
+  {%- assign nav_prev = nil -%}
+{%- elsif page.previous_post -%}
+  {%- assign nav_prev = site.posts | where: "slug", page.previous_post | first -%}
+  {%- unless nav_prev -%}
+    {%- comment -%} Fail the build on a typo instead of silently dropping the link. {%- endcomment -%}
+    {%- assign missing = "ERROR-previous_post-not-found-" | append: page.previous_post -%}
+    {% include {{ missing }} %}
+  {%- endunless -%}
+{%- endif -%}
+
+{%- if page.next_post == false -%}
+  {%- assign nav_next = nil -%}
+{%- elsif page.next_post -%}
+  {%- assign nav_next = site.posts | where: "slug", page.next_post | first -%}
+  {%- unless nav_next -%}
+    {%- comment -%} Fail the build on a typo instead of silently dropping the link. {%- endcomment -%}
+    {%- assign missing = "ERROR-next_post-not-found-" | append: page.next_post -%}
+    {% include {{ missing }} %}
+  {%- endunless -%}
+{%- endif -%}
+
+{%- if nav_prev or nav_next -%}
+<nav class="post-nav" aria-label="More posts">
+  {%- if nav_prev -%}
+  <a class="post-nav-link post-nav-prev" href="{{ nav_prev.url | relative_url }}" rel="prev">
+    <span class="post-nav-label">&larr; Previous</span>
+    <span class="post-nav-title">{{ nav_prev.title | escape }}</span>
+  </a>
+  {%- endif -%}
+  {%- if nav_next -%}
+  <a class="post-nav-link post-nav-next" href="{{ nav_next.url | relative_url }}" rel="next">
+    <span class="post-nav-label">Next &rarr;</span>
+    <span class="post-nav-title">{{ nav_next.title | escape }}</span>
+  </a>
+  {%- endif -%}
+</nav>
+{%- endif -%}

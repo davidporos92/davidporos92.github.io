@@ -1,0 +1,20 @@
+---
+# Front matter is required: without it Jekyll copies this file instead of compiling it.
+---
+
+// Entry point for the site's stylesheet.
+// Design settings live in _sass/site/_variables.scss, components in _sass/site/.
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Space+Grotesk:wght@300..700&display=swap");
+
+// Variables must come before minima: its own settings use `!default`, so ours win.
+@import "site/variables";
+@import "minima";
+
+@import
+  "site/base",
+  "site/header",
+  "site/post",
+  "site/tags",
+  "site/footer"
+;

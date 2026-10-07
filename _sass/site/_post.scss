@@ -1,0 +1,55 @@
+// Post page.
+
+.post-title {
+  color: $brand-color;
+  line-height: $heading-line-height;
+  letter-spacing: 0;
+}
+
+// Previous / next links under the post (see _includes/post-nav.html).
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-unit * 0.5;
+  margin: $spacing-unit * 2 0 $spacing-unit;
+  padding-top: $spacing-unit;
+  border-top: 1px solid $grey-color-light;
+
+  @include media-query($on-palm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.post-nav-link {
+  display: block;
+  padding: $spacing-unit * 0.5;
+  border: 1px solid $grey-color-light;
+  border-radius: $radius-small;
+  text-decoration: none;
+
+  &:hover {
+    border-color: $brand-color;
+    text-decoration: none;
+  }
+}
+
+// Keeps "Next" on the right even when there is no previous post.
+.post-nav-next {
+  grid-column: 2;
+  text-align: right;
+
+  @include media-query($on-palm) {
+    grid-column: 1;
+  }
+}
+
+.post-nav-label {
+  display: block;
+  color: $grey-color;
+  font-size: $small-font-size;
+}
+
+.post-nav-title {
+  font-family: $heading-font-family;
+  font-weight: $heading-font-weight;
+}

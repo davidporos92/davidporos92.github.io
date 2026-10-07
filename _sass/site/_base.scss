@@ -1,0 +1,36 @@
+// Element-level overrides on top of minima's base styles.
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $heading-font-family;
+  font-weight: $heading-font-weight;
+  letter-spacing: 0;
+}
+
+// minima darkens visited links and turns hovered ones black; keep every state on brand.
+a {
+  &,
+  &:visited,
+  &:hover,
+  &:focus,
+  &:active {
+    color: $brand-color;
+  }
+}
+
+// Inline code and code blocks. Nested pre/code inside a block stay transparent,
+// so the background isn't stacked twice.
+pre,
+code,
+.highlighter-rouge .highlight {
+  font-family: $code-font-family;
+  background-color: $code-background;
+
+  pre,
+  code {
+    background-color: transparent;
+  }
+}
+
+.page-content {
+  padding: $spacing-unit * 2 0 $spacing-unit;
+}
